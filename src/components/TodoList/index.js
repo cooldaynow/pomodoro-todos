@@ -1,0 +1,24 @@
+import React from "react";
+import styled from "styled-components";
+import Todo from "../Todo";
+
+const TodoList = ({ todos, switchTask, deleteTask, className }) => {
+  return (
+    <div className={className}>
+      {todos.map((todo, i) => (
+        <Todo
+          index={i}
+          key={`Todo ${i}`}
+          text={todo.text}
+          completed={todo.completed}
+          switchTask={switchTask}
+          deleteTask={deleteTask}
+        />
+      ))}
+    </div>
+  );
+};
+const StyledTodoList = styled(TodoList)`
+  background-color: yellowgreen;
+`;
+export default StyledTodoList;

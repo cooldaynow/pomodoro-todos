@@ -10,6 +10,7 @@ const TodoList = ({ todos, switchTask, deleteTask, className }) => {
           index={i}
           key={`Todo ${i}`}
           text={todo.text}
+          time={todo.time}
           completed={todo.completed}
           switchTask={switchTask}
           deleteTask={deleteTask}

@@ -1,13 +1,14 @@
 import React from "react";
-import FilterSection from "../FilterSection";
+import FilterSection from "../FilterSection/styled";
 import TodoSection from "../../components/TodoSection/styled";
-import { Test, WrapTodo, WrapApp   } from "./styled";
+import { WrapTodo, WrapApp } from "./styled";
+import SessionSection from '../../components/SessionSection'
 
 const App = ({ className }) => {
   return (
     <div className={className}>
       <WrapApp>
-        <Test />
+        <SessionSection />
         <WrapTodo>
           <FilterSection />
           <TodoSection />
@@ -16,6 +17,5 @@ const App = ({ className }) => {
     </div>
   );
 };
-
 
 export default App;

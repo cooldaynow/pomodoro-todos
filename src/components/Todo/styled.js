@@ -9,9 +9,11 @@ export const StyledTodo = styled(Todo)`
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: lightgrey;
   transition: all 0.2s linear;
   position: relative;
+
   &:hover {
     background-color: grey;
   }
@@ -50,5 +52,6 @@ export const Text = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `;
 export default StyledTodo;

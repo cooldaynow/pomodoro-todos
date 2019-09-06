@@ -3,13 +3,19 @@ const intialState = {
   todos: [
     {
       text: "static todos none completed",
-      completed: false
+      completed: false,
+      time: 0
     },
     {
       text: "static todos completed",
-      completed: true
+      completed: true,
+      time: 10
     }
-  ]
+  ],
+  session: {
+    name: "session",
+    time: 5
+  }
 };
 const rootReducer = (state = intialState, action) => {
   switch (action.type) {
@@ -48,6 +54,11 @@ const rootReducer = (state = intialState, action) => {
           ...state.todos.slice(0, action.index),
           ...state.todos.slice(action.index + 1)
         ]
+      };
+    case "SHOW_TIME":
+      return {
+        ...state,
+        sessionTime: action.time
       };
 
     default:

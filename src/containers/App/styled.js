@@ -9,10 +9,7 @@ export const WrapApp = styled.div`
   background-color: grey;
   border-radius: 5px;
 `;
-export const Test = styled.div`
-  width: 100%;
-  height: 200px;
-`;
+
 export const WrapTodo = styled.div`
   display: flex;
   padding: 20px;

@@ -7,7 +7,9 @@ const FilterSection = ({ setFilter, className }) => {
   return (
     <div className={className}>
       <HeadFilter> FILTER </HeadFilter>
-      <FilterButton onClick={() => setFilter("SHOW_ALL")}>ALL</FilterButton>
+      <FilterButton onClick={() => setFilter("SHOW_ALL")}>
+        ALL
+      </FilterButton>
       <FilterButton onClick={() => setFilter("SHOW_COMPLETED")}>
         COMPLETED{" "}
       </FilterButton>
@@ -20,7 +22,7 @@ const FilterSection = ({ setFilter, className }) => {
 const StyledFilterSection = styled(FilterSection)`
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
+  background-color: lightgrey;
   height: 400px;
   position: relative;
 `;
@@ -37,7 +39,7 @@ const FilterButton = styled.button`
   outline: none;
   border-radius: 10px;
   transition: all 0.1s linear;
-  background-color: lightcoral;
+  background-color: grey;
   cursor: pointer;
   &:hover {
     background-color: #fff;

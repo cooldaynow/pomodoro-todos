@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { addTodo } from "../../actions";
 
 const Input = styled.input`
-  width: 50%;
+  width: 75%;
   height: 30px;
   padding: 5px 20px;
   margin: 8px 0;
@@ -16,7 +16,7 @@ const AddButton = styled.button`
   margin: 5px;
   height: 30px;
   padding: 5px;
-  background-color: lightcoral;
+  background-color: grey;
   cursor: pointer;
   &:hover {
     background-color: #fff;
@@ -46,7 +46,6 @@ const StyledAddTodo = styled(AddTodo)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: green;
   width: 100%;
   height: 100px;
 `;

@@ -1,23 +1,21 @@
 import React from "react";
-import styled from "styled-components";
 import FilterSection from "../FilterSection";
-import TodoSection from "../../components/TodoSection";
+import TodoSection from "../../components/TodoSection/styled";
+import { Test, WrapTodo, WrapApp   } from "./styled";
 
 const App = ({ className }) => {
   return (
     <div className={className}>
-      <FilterSection />
-      <TodoSection />
+      <WrapApp>
+        <Test />
+        <WrapTodo>
+          <FilterSection />
+          <TodoSection />
+        </WrapTodo>
+      </WrapApp>
     </div>
   );
 };
-const StyledApp = styled(App)`
-  width: 100%;
-  height: 100vh;
-  background-color: lightgreen;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
-export default StyledApp;
+
+export default App;

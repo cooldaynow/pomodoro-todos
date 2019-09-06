@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Todo from "../Todo";
+import Todo from "../Todo/styled";
 
 const TodoList = ({ todos, switchTask, deleteTask, className }) => {
   return (
@@ -19,6 +19,6 @@ const TodoList = ({ todos, switchTask, deleteTask, className }) => {
   );
 };
 const StyledTodoList = styled(TodoList)`
-  background-color: yellowgreen;
+  // background-color: yellowgreen;
 `;
 export default StyledTodoList;

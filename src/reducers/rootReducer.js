@@ -4,18 +4,43 @@ const intialState = {
     {
       text: "static todos none completed",
       completed: false,
-      time: 0
+      session: {
+        mins: 1,
+        secs: 0,
+        sessionTime: 1,
+        pause: 2,
+        name: "SESSION",
+        isSwitchTimer: false,
+        isTimerOn: false
+      },
+      id: 0
     },
     {
       text: "static todos completed",
       completed: true,
-      time: 10
+      session: {
+        mins: 1,
+        secs: 0,
+        sessionTime: 1,
+        pause: 1,
+        name: "SESSION",
+        switchTimer: false,
+        isTimerOn: false
+      },
+      id: 1
     }
   ],
   session: {
-    name: "session",
-    time: 5
-  }
+    mins: 1,
+    secs: 0,
+    sessionTime: 1,
+    pause: 1,
+    name: "SESSION",
+    switchTimer: false,
+    isTimerOn: false
+  },
+
+  indexTodo: 0
 };
 const rootReducer = (state = intialState, action) => {
   switch (action.type) {
@@ -30,7 +55,12 @@ const rootReducer = (state = intialState, action) => {
         ...state,
         todos: [
           ...state.todos,
-          { text: action.text, completed: false }
+          {
+            text: action.text,
+            completed: false,
+            id: action.id,
+            session: state.session
+          }
         ]
       };
     case "SWITCH_TASK":
@@ -47,18 +77,49 @@ const rootReducer = (state = intialState, action) => {
         })
       };
     case "DELETE_TASK":
-      console.log("delete task");
+      //console.log("delete task", action.index);
       return {
         ...state,
         todos: [
           ...state.todos.slice(0, action.index),
           ...state.todos.slice(action.index + 1)
-        ]
+        ],
+        indexTodo: action.index - 1 < 0 ? 0 : action.index - 1
       };
     case "SHOW_TIME":
       return {
         ...state,
-        sessionTime: action.time
+        indexTodo: action.index
+      };
+    case "UPDATE_TIMER":
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          const { session } = action;
+          if (todo.id === action.index) {
+            return {
+              ...todo,
+              session
+            };
+          }
+          return todo;
+        })
+      };
+    case "STOP_TIMER":
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          if (todo.id === action.id) {
+            return {
+              ...todo,
+              session: {
+                ...todo.session,
+                isTimerOn: false
+              }
+            };
+          }
+          return todo;
+        })
       };
 
     default:

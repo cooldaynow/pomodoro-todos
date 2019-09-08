@@ -1,11 +1,9 @@
 import React from "react";
 import StyledTimerButton from "./styled";
-const TimerButton = ({ index }) => {
+const TimerButton = ({ enableTimer, id }) => {
   return (
     <div>
-      <StyledTimerButton onClick={() => console.log("work button")}>
-        {index}
-      </StyledTimerButton>
+      <StyledTimerButton onClick={enableTimer}>{id}</StyledTimerButton>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { switchTask, deleteTask } from "../../actions";
 import TodoList from "../../components/TodoList";
 
 const getFilteredTodos = (filter, todos) => {
@@ -15,25 +14,10 @@ const getFilteredTodos = (filter, todos) => {
       return todos;
   }
 };
-const FilteredTodos = ({ todos, switchTask, deleteTask }) => (
-  <TodoList
-    switchTask={switchTask}
-    todos={todos}
-    deleteTask={deleteTask}
-  />
-);
+const FilteredTodos = ({ todos }) => <TodoList todos={todos} />;
 
 const mapStateToProps = ({ visibleFilter, todos }) => ({
   todos: getFilteredTodos(visibleFilter, todos)
 });
-const mapDispatchToProps = dispatch => {
-  return {
-    switchTask: index => dispatch(switchTask(index)),
-    deleteTask: index => dispatch(deleteTask(index))
-  };
-};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilteredTodos);
+export default connect(mapStateToProps)(FilteredTodos);

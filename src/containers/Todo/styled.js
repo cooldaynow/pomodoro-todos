@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import Todo from "./index.js";
 
-export const StyledTodo = styled(Todo)`
+export const TodoWrap = styled.div`
   color: #000;
   text-decoration: ${({ completed }) => completed && "line-through"};
   margin: 10px 0;
@@ -54,4 +53,3 @@ export const Text = styled.div`
   align-items: center;
   user-select: none;
 `;
-export default StyledTodo;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Todo from "../Todo/styled";
+import Todo from "../../containers/Todo";
 
 const TodoList = ({ todos, switchTask, deleteTask, className }) => {
   return (
@@ -8,9 +8,10 @@ const TodoList = ({ todos, switchTask, deleteTask, className }) => {
       {todos.map((todo, i) => (
         <Todo
           index={i}
-          key={`Todo ${i}`}
+          id={todo.id}
+          key={`Todo ${i + Math.floor(Math.random())}`}
           text={todo.text}
-          time={todo.time}
+          session={todo.session}
           completed={todo.completed}
           switchTask={switchTask}
           deleteTask={deleteTask}

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import AddTodo from ".";
 export const Input = styled.input`
   width: 75%;
   height: 30px;
@@ -19,12 +18,10 @@ export const AddButton = styled.button`
     background-color: #fff;
   }
 `;
-export const StyledAddTodo = styled(AddTodo)`
+export const WrapAddTodo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100px;
 `;
-
-export default StyledAddTodo;

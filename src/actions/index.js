@@ -6,7 +6,7 @@ import {
   SHOW_TIME,
   STOP_TIMER,
   UPDATE_TIMER,
-  STOP_TEST
+  START_TIMER
 } from "../constants";
 import { idMaker } from "../utils";
 const makeID = idMaker();
@@ -23,9 +23,9 @@ export const addTodo = text => {
     id
   };
 };
-export const switchTask = index => ({
+export const switchTask = id => ({
   type: SWITCH_TASK,
-  index
+  id
 });
 
 export const deleteTask = index => ({
@@ -43,5 +43,10 @@ export const updateTimer = (index, session) => ({
 });
 export const stopTimer = id => ({
   type: STOP_TIMER,
+  id
+});
+
+export const startTimer = id => ({
+  type: START_TIMER,
   id
 });

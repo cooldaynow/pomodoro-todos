@@ -8,100 +8,89 @@ import {
   updateTimer,
   stopTimer
 } from "../../actions";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-const Todo = ({
-  text,
-  index,
-  completed,
-  id,
-  session,
-  switchTask,
-  deleteTask,
-  showTime,
-  updateTimer,
-  stopTimer,
-  todos
-}) => {
-  const enableTimer = () => {
-    let {
-      name,
+const Todo = ({ text, index, completed, id }) => {
+  const dispatch = useDispatch();
+  let {
+    session: {
       mins,
+      type,
       secs,
       pause,
       sessionTime,
-      isTimerOn,
       isSwitchTimer,
-      timerId: timerIdTodo
-    } = session;
+      timerId,
+      isTimerOn
+    },
+    session
+  } = useSelector(state => ({
+    session: state.todos[index].session
+  }));
 
-    if (isTimerOn === false) {
-      const timerId = setInterval(() => {
-        if (mins === 0 && secs === 0) {
-          isSwitchTimer = !isSwitchTimer;
-          name = isSwitchTimer ? "BREAK" : "SESSION";
-          mins = isSwitchTimer ? pause : sessionTime;
+  const calcTimer = () => {
+    const timerId = setInterval(() => {
+      if (mins === 0 && secs === 0) {
+        isSwitchTimer = !isSwitchTimer;
+        type = isSwitchTimer ? "BREAK" : "SESSION";
+        mins = isSwitchTimer ? pause : sessionTime;
+      } else {
+        if (secs === 0) {
+          mins--;
+          secs = 59;
         } else {
-          if (secs === 0) {
-            mins--;
-            secs = 59;
-          } else {
-            secs--;
-          }
+          secs--;
         }
-        let newSession = {
-          ...session,
-          isSwitchTimer,
-          mins,
-          secs,
-          name,
-          isTimerOn: true,
-          timerId
-        };
-        updateTimer(id, newSession);
-      }, 100);
-      console.log("enable timer", timerId);
-    }
+      }
+      let newSession = {
+        ...session,
+        isSwitchTimer,
+        mins,
+        secs,
+        type,
+        //     isTimerOn: true,
+        timerId
+      };
+      dispatch(updateTimer(id, newSession));
+      console.log(newSession);
+    }, 1000);
+
+    //console.log("timerId", timerId);
+  };
+
+  const enableTimer = () => {
     if (isTimerOn === true) {
-      stopTimer(id);
-      clearTimeout(timerIdTodo);
+      dispatch(stopTimer(id));
+      clearTimeout(timerId);
+      console.log("stop todo", timerId);
+    }
+    if (isTimerOn === false) {
+      //dispatch(startTimer(id));
+      console.log("timer start", console.log(isTimerOn));
+      calcTimer();
     }
   };
-  const deleteTodo = index => {
-    const { timerId: timerIdTodo } = todos[index].session;
-    clearTimeout(timerIdTodo);
-    deleteTask(index);
-    console.log("delete todo", timerIdTodo);
+  const deleteTodo = () => {
+    clearTimeout(timerId);
+    dispatch(deleteTask(index));
+    console.log("delete todo", timerId);
   };
 
   return (
     <TodoWrap completed={completed}>
-      <TimerButton id={id} enableTimer={enableTimer} />
+      <TimerButton
+        id={id}
+        enableTimer={enableTimer}
+        isTimerOn={isTimerOn}
+      />
       <Text
-        onClick={() => showTime(index)}
-        onDoubleClick={() => switchTask(index)}
+        onClick={() => dispatch(showTime(index))}
+        onDoubleClick={() => dispatch(switchTask(id))}
       >
         {text}
       </Text>
-      <TodoCloser onClick={() => deleteTodo(index)} />
+      <TodoCloser onClick={deleteTodo} />
     </TodoWrap>
   );
 };
-const mapStateToProps = ({ todos }) => {
-  return {
-    todos
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    switchTask: index => dispatch(switchTask(index)),
-    deleteTask: index => dispatch(deleteTask(index)),
-    showTime: index => dispatch(showTime(index)),
-    updateTimer: (index, session) => dispatch(updateTimer(index, session)),
-    stopTimer: index => dispatch(stopTimer(index))
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Todo);
+export default Todo;

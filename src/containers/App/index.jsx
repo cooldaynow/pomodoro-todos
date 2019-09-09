@@ -1,12 +1,12 @@
 import React from "react";
 import FilterSection from "../FilterSection/styled";
-import TodoSection from "../../components/TodoSection/styled";
-import { WrapTodo, WrapApp } from "./styled";
+import TodoSection from "../../components/TodoSection";
+import { WrapTodo, WrapApp, BodyApp } from "./styled";
 import SessionSection from '../../components/SessionSection'
 
-const App = ({ className }) => {
+const App = () => {
   return (
-    <div className={className}>
+    <BodyApp>
       <WrapApp>
         <SessionSection />
         <WrapTodo>
@@ -14,7 +14,7 @@ const App = ({ className }) => {
           <TodoSection />
         </WrapTodo>
       </WrapApp>
-    </div>
+    </BodyApp>
   );
 };
 

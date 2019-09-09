@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import App from ".";
 
 export const WrapApp = styled.div`
   display: flex;
@@ -14,7 +13,7 @@ export const WrapTodo = styled.div`
   display: flex;
   padding: 20px;
 `;
-export const StyledApp = styled(App)`
+export const BodyApp = styled.div`
   width: 100%;
   height: 100vh;
   background-color: lightyellow;
@@ -22,4 +21,3 @@ export const StyledApp = styled(App)`
   justify-content: center;
   align-items: center;
 `;
-export default StyledApp;

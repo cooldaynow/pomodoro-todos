@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import StyledTimerButton from "./styled";
-const TimerButton = ({ enableTimer, id }) => {
+import { startTimer } from "../../actions";
+import { useDispatch } from "react-redux";
+const TimerButton = ({ enableTimer, id, isTimerOn }) => {
+  const [buttonDelay, setButtonDelay] = useState(false);
+  const dispatch = useDispatch();
+  const enableTimerWithDelay = () => {
+    dispatch(startTimer(id));
+    setButtonDelay(true);
+    setTimeout(() => {
+      setButtonDelay(false);
+    }, 1000);
+
+    if (buttonDelay) {
+      return;
+    }
+    enableTimer();
+  };
   return (
     <div>
-      <StyledTimerButton onClick={enableTimer}>{id}</StyledTimerButton>
+      <StyledTimerButton
+        isTimerOn={isTimerOn}
+        onClick={enableTimerWithDelay}
+      >
+        {id}
+      </StyledTimerButton>
     </div>
   );
 };

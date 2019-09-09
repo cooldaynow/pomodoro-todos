@@ -1,13 +1,14 @@
 import React from 'react'
 import FilteredTodos from "../../containers/FilteredTodos";
-import AddTodo from '../../containers/AddTodo/styled';
+import AddTodo from '../../containers/AddTodo';
+import { WrapTodoSection } from './styled'
 
-const TodoSection = ({className}) => {
+const TodoSection = () => {
   return (
-    <div className = {className}>
+    <WrapTodoSection>
       <AddTodo />
       <FilteredTodos/>
-    </div>
+    </WrapTodoSection>
   )
 }
 

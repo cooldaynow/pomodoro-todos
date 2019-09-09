@@ -18,5 +18,3 @@ export const SessionHeader = styled.div`
 
   border: 1px solid grey;
 `;
-
-export default SessionWrap;

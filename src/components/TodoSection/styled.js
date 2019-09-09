@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import TodoSection from ".";
-const StyledTodoSection = styled(TodoSection)`
+export const WrapTodoSection = styled.div`
   display: flex;
   height: 400px;
   width: 400px;
@@ -8,4 +7,3 @@ const StyledTodoSection = styled(TodoSection)`
   flex-direction: column;
   background-color: lightgrey;
 `;
-export default StyledTodoSection;

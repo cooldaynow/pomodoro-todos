@@ -9,7 +9,7 @@ const intialState = {
         secs: 0,
         sessionTime: 1,
         pause: 2,
-        name: "SESSION",
+        type: "SESSION",
         isSwitchTimer: false,
         isTimerOn: false
       },
@@ -23,7 +23,7 @@ const intialState = {
         secs: 0,
         sessionTime: 1,
         pause: 1,
-        name: "SESSION",
+        type: "SESSION",
         switchTimer: false,
         isTimerOn: false
       },
@@ -35,7 +35,7 @@ const intialState = {
     secs: 0,
     sessionTime: 1,
     pause: 1,
-    name: "SESSION",
+    type: "SESSION",
     switchTimer: false,
     isTimerOn: false
   },
@@ -66,8 +66,8 @@ const rootReducer = (state = intialState, action) => {
     case "SWITCH_TASK":
       return {
         ...state,
-        todos: state.todos.map((todo, index) => {
-          if (index === action.index) {
+        todos: state.todos.map(todo => {
+          if (todo.id === action.id) {
             return {
               ...todo,
               completed: !todo.completed
@@ -84,7 +84,12 @@ const rootReducer = (state = intialState, action) => {
           ...state.todos.slice(0, action.index),
           ...state.todos.slice(action.index + 1)
         ],
-        indexTodo: action.index - 1 < 0 ? 0 : action.index - 1
+        indexTodo:
+          action.index - 1 < 0
+            ? 0
+            : action.index === state.todos.length - 1
+            ? action.index - 1
+            : action.index
       };
     case "SHOW_TIME":
       return {
@@ -121,7 +126,22 @@ const rootReducer = (state = intialState, action) => {
           return todo;
         })
       };
-
+    case "START_TIMER":
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          if (todo.id === action.id) {
+            return {
+              ...todo,
+              session: {
+                ...todo.session,
+                isTimerOn: true
+              }
+            };
+          }
+          return todo;
+        })
+      };
     default:
       return state;
   }

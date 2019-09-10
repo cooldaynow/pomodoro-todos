@@ -6,6 +6,11 @@ export const Input = styled.input`
   margin: 8px 0;
   border-radius: 5px;
   box-sizing: border-box;
+  &:active,
+  &:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2pt lightblue;
+  }
 `;
 export const AddButton = styled.button`
   border-radius: 5px;
@@ -16,6 +21,11 @@ export const AddButton = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #fff;
+  }
+  &:active,
+  &:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2pt lightblue;
   }
 `;
 export const WrapAddTodo = styled.div`

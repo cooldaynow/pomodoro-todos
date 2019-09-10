@@ -8,10 +8,11 @@ const intialState = {
         mins: 1,
         secs: 0,
         sessionTime: 1,
-        pause: 2,
+        pause: 1,
         type: "SESSION",
         isSwitchTimer: false,
-        isTimerOn: false
+        isTimerOn: false,
+        pomodoros: 10
       },
       id: 0
     },
@@ -25,7 +26,8 @@ const intialState = {
         pause: 1,
         type: "SESSION",
         switchTimer: false,
-        isTimerOn: false
+        isTimerOn: false,
+        pomodoros: 0
       },
       id: 1
     }
@@ -37,7 +39,8 @@ const intialState = {
     pause: 1,
     type: "SESSION",
     switchTimer: false,
-    isTimerOn: false
+    isTimerOn: false,
+    pomodoros: 0
   },
 
   indexTodo: 0
@@ -100,11 +103,26 @@ const rootReducer = (state = intialState, action) => {
       return {
         ...state,
         todos: state.todos.map(todo => {
-          const { session } = action;
+          const {
+            newSessionPart: {
+              mins,
+              isSwitchTimer,
+              secs,
+              type,
+              timerId
+            }
+          } = action;
           if (todo.id === action.index) {
             return {
               ...todo,
-              session
+              session: {
+                ...todo.session,
+                mins,
+                isSwitchTimer,
+                secs,
+                type,
+                timerId
+              }
             };
           }
           return todo;
@@ -136,6 +154,22 @@ const rootReducer = (state = intialState, action) => {
               session: {
                 ...todo.session,
                 isTimerOn: true
+              }
+            };
+          }
+          return todo;
+        })
+      };
+    case "UPDATE_POMODOROS":
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          if (todo.id === action.id) {
+            return {
+              ...todo,
+              session: {
+                ...todo.session,
+                pomodoros: todo.session.pomodoros + 1
               }
             };
           }

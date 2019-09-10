@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import FilterSection from ".";
 
-export const StyledFilterSection = styled(FilterSection)`
+export const WrapFilterSection = styled.div`
   display: flex;
   flex-direction: column;
   background-color: silver;
-  height: 400px;
+  max-height: 800px;
+  min-height: 500px;
   position: relative;
 `;
 export const HeadFilter = styled.div`
@@ -15,16 +15,17 @@ export const HeadFilter = styled.div`
   position: absolute;
 `;
 export const FilterButton = styled.button`
+  color: black;
   margin: 5px 5px 0 5px;
   width: 100px;
   height: 100px;
   outline: none;
   border-radius: 10px;
   transition: all 0.1s linear;
-  background-color: grey;
+  background-color: ${({ disabled }) =>
+    disabled ? "grey" : "silver"};
   cursor: pointer;
   &:hover {
-    background-color: #fff;
+    background-color: ${({ disabled }) => (disabled ? "" : "white")};
   }
 `;
-export default StyledFilterSection;

@@ -1,8 +1,8 @@
 import React from "react";
-import FilterSection from "../FilterSection/styled";
+import FilterSection from "../FilterSection";
 import TodoSection from "../../components/TodoSection";
+import SessionSection from "../../components/SessionSection";
 import { WrapTodo, WrapApp, BodyApp } from "./styled";
-import SessionSection from '../../components/SessionSection'
 
 const App = () => {
   return (

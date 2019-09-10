@@ -1,30 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { setFilter } from "../../actions";
-import { connect } from "react-redux";
-import { HeadFilter, FilterButton } from "./styled";
+import { useDispatch } from "react-redux";
+import {
+  HeadFilter,
+  FilterButton,
+  WrapFilterSection
+} from "./styled";
 
-const FilterSection = ({ setFilter, className }) => {
+const FilterSection = () => {
+  const dispatch = useDispatch();
+  const [active, setActive] = useState(0);
+  const handleClick = (buttonIndex, filter) => {
+    setActive(buttonIndex);
+    dispatch(setFilter(filter));
+  };
+
   return (
-    <div className={className}>
+    <WrapFilterSection>
       <HeadFilter> FILTER </HeadFilter>
-      <FilterButton onClick={() => setFilter("SHOW_ALL")}>
+      <FilterButton
+        disabled={active === 0}
+        onClick={() => {
+          handleClick(0, "SHOW_ALL");
+        }}
+      >
         ALL
       </FilterButton>
-      <FilterButton onClick={() => setFilter("SHOW_COMPLETED")}>
+      <FilterButton
+        disabled={active === 1}
+        onClick={() => handleClick(1, "SHOW_COMPLETED")}
+      >
         COMPLETED{" "}
       </FilterButton>
-      <FilterButton onClick={() => setFilter("SHOW_UNFULFILLED")}>
+      <FilterButton
+        disabled={active === 2}
+        onClick={() => handleClick(2, "SHOW_UNFULFILLED")}
+      >
         UNFULFILLED
       </FilterButton>
-    </div>
+    </WrapFilterSection>
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  setFilter: filter => dispatch(setFilter(filter))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(FilterSection);
+export default FilterSection;

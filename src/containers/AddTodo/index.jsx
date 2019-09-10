@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTodo } from "../../actions";
 import { Input, AddButton, WrapAddTodo } from "./styled";
 
 const AddTodo = () => {
   const [text, setText] = useState("");
+  const todos = useSelector(state => state.todos);
   const dispatch = useDispatch();
   const addTask = () => {
-    if (!text) {
+    setText("");
+    if (!text || todos.length > 10) {
       return;
     }
     dispatch(addTodo(text));
-    setText("");
   };
   return (
     <WrapAddTodo>

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import TodoList from "../../components/TodoList";
 
 const getFilteredTodos = (filter, todos) => {
@@ -14,10 +14,11 @@ const getFilteredTodos = (filter, todos) => {
       return todos;
   }
 };
-const FilteredTodos = ({ todos }) => <TodoList todos={todos} />;
+const FilteredTodos = () => {
+  const { visibleFilter, todos } = useSelector(state => state);
+  const filteredTodos = getFilteredTodos(visibleFilter, todos);
+  console.log(filteredTodos);
+  return <TodoList todos={filteredTodos} />;
+};
 
-const mapStateToProps = ({ visibleFilter, todos }) => ({
-  todos: getFilteredTodos(visibleFilter, todos)
-});
-
-export default connect(mapStateToProps)(FilteredTodos);
+export default FilteredTodos;

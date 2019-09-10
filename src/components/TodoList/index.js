@@ -8,7 +8,7 @@ const TodoList = ({ todos }) => {
         <Todo
           index={i}
           id={todo.id}
-          key={`Todo ${i + Math.floor(Math.random())}`}
+          key={`Todo ${i}`}
           text={todo.text}
           completed={todo.completed}
         />

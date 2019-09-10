@@ -3,14 +3,16 @@ import styled from "styled-components";
 export const TodoWrap = styled.div`
   color: #000;
   text-decoration: ${({ completed }) => completed && "line-through"};
-  margin: 10px 0;
+  margin: 2px 0;
   border: 1px solid grey;
+  height: 40px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightgrey;
-  transition: all 0.2s linear;
+  background-color: ${({ indexTodo, index }) =>
+    index === indexTodo && "grey"};
+  transition: all 0.1s linear;
   position: relative;
 
   &:hover {
@@ -25,7 +27,7 @@ export const TodoCloser = styled.span`
   height: 20px;
   opacity: 1;
   background-color: silver;
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
   &::before,
   ::after {
     position: absolute;
@@ -46,8 +48,8 @@ export const TodoCloser = styled.span`
   }
 `;
 export const Text = styled.div`
-  width: 90%;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

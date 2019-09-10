@@ -6,31 +6,44 @@ import {
   deleteTask,
   showTime,
   updateTimer,
-  stopTimer
+  stopTimer,
+  startTimer,
+  updatePomodoros
 } from "../../actions";
 import { useSelector, useDispatch } from "react-redux";
 
-const Todo = ({ text, index, completed, id }) => {
+const Todo = ({ index }) => {
   const dispatch = useDispatch();
   let {
-    session: {
-      mins,
-      type,
-      secs,
-      pause,
-      sessionTime,
-      isSwitchTimer,
-      timerId,
-      isTimerOn
+    todo: {
+      session: {
+        mins,
+        type,
+        secs,
+        pause,
+        sessionTime,
+        isSwitchTimer,
+        timerId,
+        isTimerOn
+      },
+      text,
+      completed,
+      id
     },
-    session
+    indexTodo
   } = useSelector(state => ({
-    session: state.todos[index].session
+    //session: state.todos[index].session,
+    todo: state.todos[index],
+    indexTodo: state.indexTodo
   }));
 
   const calcTimer = () => {
     const timerId = setInterval(() => {
       if (mins === 0 && secs === 0) {
+        if (isSwitchTimer === true) {
+          console.log("work");
+          dispatch(updatePomodoros(id));
+        }
         isSwitchTimer = !isSwitchTimer;
         type = isSwitchTimer ? "BREAK" : "SESSION";
         mins = isSwitchTimer ? pause : sessionTime;
@@ -42,18 +55,16 @@ const Todo = ({ text, index, completed, id }) => {
           secs--;
         }
       }
-      let newSession = {
-        ...session,
+      let newSessionPart = {
         isSwitchTimer,
         mins,
         secs,
         type,
-        //     isTimerOn: true,
         timerId
       };
-      dispatch(updateTimer(id, newSession));
-      console.log(newSession);
-    }, 1000);
+      dispatch(updateTimer(id, newSessionPart));
+      // console.log(newSession);
+    }, 100);
 
     //console.log("timerId", timerId);
   };
@@ -65,7 +76,7 @@ const Todo = ({ text, index, completed, id }) => {
       console.log("stop todo", timerId);
     }
     if (isTimerOn === false) {
-      //dispatch(startTimer(id));
+      dispatch(startTimer(id));
       console.log("timer start", console.log(isTimerOn));
       calcTimer();
     }
@@ -77,11 +88,16 @@ const Todo = ({ text, index, completed, id }) => {
   };
 
   return (
-    <TodoWrap completed={completed}>
+    <TodoWrap
+      completed={completed}
+      index={index}
+      indexTodo={indexTodo}
+    >
       <TimerButton
         id={id}
         enableTimer={enableTimer}
         isTimerOn={isTimerOn}
+        index={index}
       />
       <Text
         onClick={() => dispatch(showTime(index))}

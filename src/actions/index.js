@@ -6,7 +6,8 @@ import {
   SHOW_TIME,
   STOP_TIMER,
   UPDATE_TIMER,
-  START_TIMER
+  START_TIMER,
+  UPDATE_POMODOROS
 } from "../constants";
 import { idMaker } from "../utils";
 const makeID = idMaker();
@@ -36,10 +37,10 @@ export const showTime = index => ({
   type: SHOW_TIME,
   index
 });
-export const updateTimer = (index, session) => ({
+export const updateTimer = (index, newSessionPart) => ({
   type: UPDATE_TIMER,
   index,
-  session
+  newSessionPart
 });
 export const stopTimer = id => ({
   type: STOP_TIMER,
@@ -48,5 +49,9 @@ export const stopTimer = id => ({
 
 export const startTimer = id => ({
   type: START_TIMER,
+  id
+});
+export const updatePomodoros = id => ({
+  type: UPDATE_POMODOROS,
   id
 });
